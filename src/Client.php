@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-namespace IntegroBR\NfseSdk;
+namespace Sudrel\NfseSdk;
 
 /**
- * Cliente oficial da API pública do IntegroBR NFS-e Recebidas.
+ * Cliente oficial da API pública da Sudrel NFS-e Recebidas.
  *
  * ```php
- * $client = new Client($_ENV['INTEGROBR_API_KEY']);
+ * $client = new Client($_ENV['SUDREL_API_KEY']);
  * $empresas = $client->listarEmpresas();
  * ```
  */
 final class Client
 {
-    private const BASE_URL_PADRAO = 'https://api.recebidas.integrobr.com/api';
+    private const BASE_URL_PADRAO = 'https://api.sudrel.com.br/api';
 
     /** @var callable(string,string,array<int,string>,mixed):array{status:int,body:string} */
     private $transporte;
 
     /**
-     * @param string $apiKey Chave de API — `ibr_live_...` (produção) ou `ibr_test_...` (sandbox).
+     * @param string $apiKey Chave de API — `sdr_live_...` (produção) ou `sdr_test_...` (sandbox).
      * @param string $baseUrl Sobrescreve a URL base — usado só em testes/desenvolvimento.
      * @param int $timeoutSegundos Timeout por requisição.
      * @param callable|null $transporte Função de transporte HTTP customizada — usada em testes.
@@ -60,7 +60,7 @@ final class Client
         if ($body === false) {
             $erro = curl_error($ch);
             curl_close($ch);
-            throw new \RuntimeException("Falha de conexão com a API do IntegroBR: {$erro}");
+            throw new \RuntimeException("Falha de conexão com a API do Sudrel: {$erro}");
         }
 
         $status = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);

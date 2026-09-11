@@ -1,14 +1,14 @@
-# integrobr/nfse-sdk (PHP)
+# sudrel/nfse-sdk (PHP)
 
-Cliente oficial PHP para a [API pública do IntegroBR NFS-e Recebidas](https://recebidas.integrobr.com/docs) — consulte e gerencie, de forma programática, as NFS-e (notas de serviço) monitoradas pela sua conta IntegroBR.
+Cliente oficial PHP para a [API pública da Sudrel NFS-e Recebidas](https://sudrel.com.br/docs) — consulte e gerencie, de forma programática, as NFS-e (notas de serviço) monitoradas pela sua conta Sudrel.
 
-- Documentação completa da API: **https://recebidas.integrobr.com/docs**
+- Documentação completa da API: **https://sudrel.com.br/docs**
 - Requer PHP **8.1+** com as extensões `curl` e `json` (praticamente universais — sem dependências externas de runtime).
 
 ## Instalação
 
 ```bash
-composer require integrobr/nfse-sdk
+composer require sudrel/nfse-sdk
 ```
 
 ## Uso rápido
@@ -18,9 +18,9 @@ composer require integrobr/nfse-sdk
 
 require 'vendor/autoload.php';
 
-use IntegroBR\NfseSdk\Client;
+use Sudrel\NfseSdk\Client;
 
-$client = new Client($_ENV['INTEGROBR_API_KEY']);
+$client = new Client($_ENV['SUDREL_API_KEY']);
 
 $conta = $client->obterConta();
 echo $conta['nome'], ' ', $conta['ambiente'], PHP_EOL; // "Empresa Exemplo LTDA PRODUCAO"
@@ -33,8 +33,8 @@ Gere uma chave em **Painel → Chaves de API** (`/painel/chaves-api`). Ela só �
 
 | Prefixo | Ambiente |
 |---|---|
-| `ibr_test_...` | Sandbox — dados de teste, nunca reais, nunca geram cobrança. |
-| `ibr_live_...` | Produção — dados fiscais reais da sua conta. |
+| `sdr_test_...` | Sandbox — dados de teste, nunca reais, nunca geram cobrança. |
+| `sdr_live_...` | Produção — dados fiscais reais da sua conta. |
 
 ## Empresas (CNPJs monitorados)
 
@@ -97,10 +97,10 @@ if ($consumo['temCicloAtivo']) {
 
 ## Tratamento de erros
 
-Toda chamada que falha lança `IntegroBR\NfseSdk\ApiException`, com `getStatusCode()`, `getMensagens()` (sempre um array, mesmo quando a API devolve uma string única) e helpers pros casos mais comuns:
+Toda chamada que falha lança `Sudrel\NfseSdk\ApiException`, com `getStatusCode()`, `getMensagens()` (sempre um array, mesmo quando a API devolve uma string única) e helpers pros casos mais comuns:
 
 ```php
-use IntegroBR\NfseSdk\ApiException;
+use Sudrel\NfseSdk\ApiException;
 
 try {
     $client->obterEmpresa('id-que-nao-existe');
@@ -117,15 +117,15 @@ try {
 
 ## Webhooks
 
-Configure webhooks pelo painel (**Painel → Webhooks**) pra ser avisado em tempo real (`NOTA_RECEBIDA`, `EVENTO_FISCAL_RECEBIDO`) em vez de ficar consultando `GET /documents`. Cada entrega assina o corpo com HMAC-SHA256 no cabeçalho `X-IntegroBR-Signature` — **sempre verifique antes de confiar no payload**:
+Configure webhooks pelo painel (**Painel → Webhooks**) pra ser avisado em tempo real (`NOTA_RECEBIDA`, `EVENTO_FISCAL_RECEBIDO`) em vez de ficar consultando `GET /documents`. Cada entrega assina o corpo com HMAC-SHA256 no cabeçalho `X-Sudrel-Signature` — **sempre verifique antes de confiar no payload**:
 
 ```php
-use IntegroBR\NfseSdk\Webhooks;
+use Sudrel\NfseSdk\Webhooks;
 
 $corpoBruto = file_get_contents('php://input'); // precisa do corpo BRUTO, não decodificado
-$assinatura = $_SERVER['HTTP_X_INTEGROBR_SIGNATURE'] ?? '';
+$assinatura = $_SERVER['HTTP_X_SUDREL_SIGNATURE'] ?? '';
 
-if (!Webhooks::verificarAssinatura($corpoBruto, $assinatura, $_ENV['INTEGROBR_WEBHOOK_SECRET'])) {
+if (!Webhooks::verificarAssinatura($corpoBruto, $assinatura, $_ENV['SUDREL_WEBHOOK_SECRET'])) {
     http_response_code(401);
     exit('assinatura inválida');
 }

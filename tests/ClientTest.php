@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace IntegroBR\NfseSdk\Tests;
+namespace Sudrel\NfseSdk\Tests;
 
-use IntegroBR\NfseSdk\ApiException;
-use IntegroBR\NfseSdk\Client;
+use Sudrel\NfseSdk\ApiException;
+use Sudrel\NfseSdk\Client;
 use PHPUnit\Framework\TestCase;
 
 final class ClientTest extends TestCase
@@ -20,7 +20,7 @@ final class ClientTest extends TestCase
     {
         $chamadas = [];
         $client = new Client(
-            apiKey: 'ibr_live_abc',
+            apiKey: 'sdr_live_abc',
             transporte: function (string $metodo, string $url, array $headers, mixed $corpo) use (&$chamadas): array {
                 $chamadas[] = [$metodo, $url, $headers, $corpo];
 
@@ -44,13 +44,13 @@ final class ClientTest extends TestCase
         [$metodo, $url, $headers] = $chamadas[0];
         self::assertSame('GET', $metodo);
         self::assertStringEndsWith('/v1/account', $url);
-        self::assertContains('Authorization: Bearer ibr_live_abc', $headers);
+        self::assertContains('Authorization: Bearer sdr_live_abc', $headers);
     }
 
     public function testListarEmpresasDevolveArrayDireto(): void
     {
         $client = new Client(
-            apiKey: 'ibr_test_abc',
+            apiKey: 'sdr_test_abc',
             transporte: fn (): array => [
                 'status' => 200,
                 'body' => json_encode([['id' => '1'], ['id' => '2']], JSON_THROW_ON_ERROR),
@@ -65,7 +65,7 @@ final class ClientTest extends TestCase
     public function testLancaApiExceptionComStatusCodeEMensagem(): void
     {
         $client = new Client(
-            apiKey: 'ibr_test_abc',
+            apiKey: 'sdr_test_abc',
             transporte: fn (): array => [
                 'status' => 404,
                 'body' => json_encode([
@@ -90,7 +90,7 @@ final class ClientTest extends TestCase
     {
         $urlCapturada = null;
         $client = new Client(
-            apiKey: 'ibr_test_abc',
+            apiKey: 'sdr_test_abc',
             transporte: function (string $metodo, string $url) use (&$urlCapturada): array {
                 $urlCapturada = $url;
 
@@ -109,7 +109,7 @@ final class ClientTest extends TestCase
     {
         $chamada = 0;
         $client = new Client(
-            apiKey: 'ibr_test_abc',
+            apiKey: 'sdr_test_abc',
             transporte: function () use (&$chamada): array {
                 $chamada++;
                 if ($chamada === 1) {

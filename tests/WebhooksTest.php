@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace IntegroBR\NfseSdk\Tests;
+namespace Sudrel\NfseSdk\Tests;
 
-use IntegroBR\NfseSdk\Webhooks;
+use Sudrel\NfseSdk\Webhooks;
 use PHPUnit\Framework\TestCase;
 
 final class WebhooksTest extends TestCase

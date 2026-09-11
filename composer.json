@@ -1,13 +1,13 @@
 {
-    "name": "integrobr/nfse-sdk",
-    "description": "Cliente oficial PHP para a API pública do IntegroBR NFS-e Recebidas",
+    "name": "sudrel/nfse-sdk",
+    "description": "Cliente oficial PHP para a API pública da Sudrel NFS-e Recebidas",
     "type": "library",
     "license": "MIT",
-    "homepage": "https://recebidas.integrobr.com/docs",
+    "homepage": "https://sudrel.com.br/docs",
     "authors": [
         {
-            "name": "IntegroBR",
-            "email": "comercial@integrobr.com"
+            "name": "Sudrel",
+            "email": "contato@sudrel.com.br"
         }
     ],
     "require": {
@@ -20,12 +20,12 @@
     },
     "autoload": {
         "psr-4": {
-            "IntegroBR\\NfseSdk\\": "src/"
+            "Sudrel\\NfseSdk\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "IntegroBR\\NfseSdk\\Tests\\": "tests/"
+            "Sudrel\\NfseSdk\\Tests\\": "tests/"
         }
     },
     "scripts": {
