@@ -1,35 +1,17 @@
 {
-    "name": "sudrel/nfse-sdk",
-    "description": "Cliente oficial PHP para a API pública da Sudrel NFS-e Recebidas",
-    "type": "library",
-    "license": "MIT",
-    "homepage": "https://sudrel.com.br/docs",
-    "authors": [
-        {
-            "name": "Sudrel",
-            "email": "contato@sudrel.com.br"
-        }
-    ],
-    "require": {
-        "php": ">=8.1",
-        "ext-curl": "*",
-        "ext-json": "*"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^10.5"
-    },
-    "autoload": {
-        "psr-4": {
-            "Sudrel\\NfseSdk\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Sudrel\\NfseSdk\\Tests\\": "tests/"
-        }
-    },
-    "scripts": {
-        "test": "phpunit"
-    },
-    "minimum-stability": "stable"
+  "name": "sudrel/sdk",
+  "description": "SDK oficial da API de emissão de NFS-e da Sudrel.",
+  "type": "library",
+  "license": "MIT",
+  "homepage": "https://sudrel.com.br/docs",
+  "keywords": ["nfse", "nota-fiscal", "emissao", "sefin", "sdk", "brasil", "sudrel"],
+  "require": {
+    "php": ">=8.1",
+    "ext-curl": "*",
+    "ext-json": "*"
+  },
+  "autoload": {
+    "psr-4": { "Sudrel\\": "src/" },
+    "files": ["src/verificar-webhook.php"]
+  }
 }

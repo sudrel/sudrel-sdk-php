@@ -1,5 +1,2 @@
-/vendor/
+vendor/
 composer.lock
-*.log
-.env
-.phpunit.result.cache
