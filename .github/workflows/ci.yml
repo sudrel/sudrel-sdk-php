@@ -1,5 +1,5 @@
 name: ci
-on: [push, pull_request]
+on: [push, pull_request, workflow_dispatch]
 jobs:
   sintaxe:
     runs-on: ubuntu-latest
@@ -21,3 +21,9 @@ jobs:
           unzip -q "$RUNNER_TEMP/pacote/sudrel-sdk.zip" -d "$RUNNER_TEMP/cliente"
           composer install --working-dir="$RUNNER_TEMP/cliente" --no-interaction --no-dev
           php tests/distribuicao.php "$RUNNER_TEMP/cliente/vendor/autoload.php"
+      - name: Conferir instalação a partir do Packagist
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          mkdir -p "$RUNNER_TEMP/packagist"
+          composer require sudrel/sdk:0.2.0 --working-dir="$RUNNER_TEMP/packagist" --no-interaction --no-dev
+          php tests/distribuicao.php "$RUNNER_TEMP/packagist/vendor/autoload.php"
