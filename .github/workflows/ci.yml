@@ -25,5 +25,11 @@ jobs:
         if: github.event_name == 'workflow_dispatch'
         run: |
           mkdir -p "$RUNNER_TEMP/packagist"
+          for tentativa in $(seq 1 30); do
+            if curl -fsS https://repo.packagist.org/p2/sudrel/sdk.json | php -r '$d=json_decode(stream_get_contents(STDIN),true); exit(in_array("v0.2.0",array_column($d["packages"]["sudrel/sdk"],"version"),true)?0:1);'; then break; fi
+            echo "Aguardando o índice público atualizar a versão 0.2.0."
+            sleep 10
+          done
+          composer clear-cache
           composer require sudrel/sdk:0.2.0 --working-dir="$RUNNER_TEMP/packagist" --no-interaction --update-no-dev
           php tests/distribuicao.php "$RUNNER_TEMP/packagist/vendor/autoload.php"
