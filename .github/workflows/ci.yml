@@ -25,5 +25,5 @@ jobs:
         if: github.event_name == 'workflow_dispatch'
         run: |
           mkdir -p "$RUNNER_TEMP/packagist"
-          composer require sudrel/sdk:0.2.0 --working-dir="$RUNNER_TEMP/packagist" --no-interaction --no-dev
+          composer require sudrel/sdk:0.2.0 --working-dir="$RUNNER_TEMP/packagist" --no-interaction --update-no-dev
           php tests/distribuicao.php "$RUNNER_TEMP/packagist/vendor/autoload.php"
