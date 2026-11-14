@@ -14,3 +14,10 @@ jobs:
           extensions: curl, json
       - run: composer validate --strict
       - run: find src -name '*.php' -print0 | xargs -0 -n1 php -l
+      - name: Conferir o pacote distribuído
+        run: |
+          mkdir -p "$RUNNER_TEMP/pacote" "$RUNNER_TEMP/cliente"
+          composer archive --format=zip --file=sudrel-sdk --dir="$RUNNER_TEMP/pacote"
+          unzip -q "$RUNNER_TEMP/pacote/sudrel-sdk.zip" -d "$RUNNER_TEMP/cliente"
+          composer install --working-dir="$RUNNER_TEMP/cliente" --no-interaction --no-dev
+          php tests/distribuicao.php "$RUNNER_TEMP/cliente/vendor/autoload.php"

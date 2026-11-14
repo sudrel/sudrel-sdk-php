@@ -50,7 +50,7 @@ class ClienteHttp
         $cabecalhos = [
             'Authorization' => "Bearer {$this->chave}",
             'Accept' => 'application/json',
-            'User-Agent' => 'sudrel/sdk-php 0.1.0',
+            'User-Agent' => 'sudrel/sdk-php 0.2.0',
         ];
         if ($idempotencyKey) {
             $cabecalhos['Idempotency-Key'] = $idempotencyKey;

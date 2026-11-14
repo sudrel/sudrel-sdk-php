@@ -1,17 +1,43 @@
 {
   "name": "sudrel/sdk",
-  "description": "SDK oficial da API de emissão de NFS-e da Sudrel.",
+  "description": "SDK oficial da API da Sudrel para emissão de NFS-e, NF-e, NFC-e e DC-e.",
   "type": "library",
   "license": "MIT",
   "homepage": "https://sudrel.com.br/docs",
-  "keywords": ["nfse", "nota-fiscal", "emissao", "sefin", "sdk", "brasil", "sudrel"],
+  "keywords": [
+    "nfse",
+    "nota-fiscal",
+    "emissao",
+    "sefin",
+    "sdk",
+    "brasil",
+    "sudrel",
+    "nfe",
+    "nfce",
+    "dce"
+  ],
   "require": {
     "php": ">=8.1",
     "ext-curl": "*",
     "ext-json": "*"
   },
   "autoload": {
-    "psr-4": { "Sudrel\\": "src/" },
-    "files": ["src/verificar-webhook.php"]
+    "psr-4": {
+      "Sudrel\\": "src/"
+    },
+    "files": [
+      "src/verificar-webhook.php"
+    ]
+  },
+  "support": {
+    "source": "https://github.com/sudrel/sudrel-sdk-php",
+    "docs": "https://sudrel.com.br/docs"
+  },
+  "archive": {
+    "exclude": [
+      "/tests",
+      "/.github",
+      "/composer.lock"
+    ]
   }
 }

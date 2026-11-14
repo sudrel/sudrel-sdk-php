@@ -17,6 +17,12 @@ class Sudrel
 {
     public readonly ClienteHttp $http;
     public readonly Nfse $nfse;
+    public readonly Nfe $nfe;
+    public readonly Nfce $nfce;
+    public readonly Dce $dce;
+    public readonly Caixas $caixas;
+    public readonly Produtos $produtos;
+    public readonly Sefaz $sefaz;
     public readonly Lotes $lotes;
     public readonly Empresas $empresas;
     public readonly Webhooks $webhooks;
@@ -27,6 +33,12 @@ class Sudrel
     {
         $this->http = new ClienteHttp($opcoes);
         $this->nfse = new Nfse($this->http);
+        $this->nfe = new Nfe($this->http);
+        $this->nfce = new Nfce($this->http);
+        $this->dce = new Dce($this->http);
+        $this->caixas = new Caixas($this->http);
+        $this->produtos = new Produtos($this->http);
+        $this->sefaz = new Sefaz($this->http);
         $this->lotes = new Lotes($this->http);
         $this->empresas = new Empresas($this->http);
         $this->webhooks = new Webhooks($this->http);
