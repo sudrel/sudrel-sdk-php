@@ -41,6 +41,12 @@ class Lotes
         return $this->http->requisitar('POST', '/v1/lotes/' . rawurlencode($id) . '/emissao', ['corpo' => ['itens' => $itens]])['corpo'];
     }
 
+    /** Lote de DC-e: as DACE autorizadas em etiquetas 10 x 15, num PDF só. */
+    public function etiquetas(string $id): string
+    {
+        return $this->http->requisitar('GET', '/v1/lotes/' . rawurlencode($id) . '/etiquetas', ['binario' => true])['corpo'];
+    }
+
     /** @param array<int, array{linha: int, campos?: array<string, mixed>}> $itens @return array<string, mixed> */
     public function reprocessar(string $id, array $itens): array
     {

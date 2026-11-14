@@ -1,6 +1,6 @@
 # sudrel/sdk
 
-SDK oficial em PHP da API de emissão de NFS-e da [Sudrel](https://sudrel.com.br).
+SDK oficial em PHP da [Sudrel](https://sudrel.com.br) para emissão de NFS-e, NF-e, NFC-e e DC-e.
 PHP 8.1 ou mais novo, com as extensões `curl` e `json`. Sem outras dependências.
 
 ```bash
@@ -53,6 +53,12 @@ $final = $sudrel->nfse->esperar($nota['id']); // autorizada, rejeitada, falha_tr
 | | |
 |---|---|
 | `$sudrel->nfse` | `emitir`, `validar`, `obter`, `listar`, `cancelar`, `confirmar`, `esperar`, `xml`, `pdf` |
+| `$sudrel->nfe` | NF-e modelo 55: `emitir`, `previa`, `obter`, `listar`, `corrigir`, `descartar`, `cancelar`, `registrarCartaCorrecao`, `prontidao`, `perfilFiscal`, `gravarPerfilFiscal`, `aprovarPerfilFiscal`, `inutilizacoes`, `esperar`, `xml`, `danfe`. Modos `informado`, `calcular` e `conferir` em `emitir` |
+| `$sudrel->nfce` | NFC-e modelo 65: `emitir` (modo `calcular` por padrão, `Idempotency-Key` gerada se faltar), `previa`, `obter`, `listar`, `xml`, `cupom` (PDF de 80 mm), `cupomTexto`, `descartar`, `cancelar`, `enviar`, `prontidao`, `gravarCsc`, `inutilizacoes` |
+| `$sudrel->caixas` | Caixas de NFC-e: `listar`, `obter`, `criar`, `alterar` |
+| `$sudrel->dce` | DC-e (Declaração de Conteúdo eletrônica), emissão própria: `emitir` (`Idempotency-Key` gerada se faltar), `obter`, `listar`, `xml`, `dace` (A4 ou `etiqueta` 10 x 15), `descartar`, `cancelar` (em até 24 horas, com o transporte não iniciado), `prontidao`, `planilhaModelo`; em lote: `lotes->enviarPlanilha` com `tipo` = `dce` e `lotes->etiquetas` |
+| `$sudrel->sefaz` | Estado da SEFAZ de cada UF para a NF-e: `status` |
+| `$sudrel->produtos` | Produtos da NF-e: `criar`, `obter`, `listar`, `alterar`, `aprovarPerfil`, `listarVinculos`, `vincularEntrada`, `removerVinculo` |
 | `$sudrel->lotes` | `criar` (JSON), `enviarPlanilha`, `obter`, `itens`, `emitir`, `reprocessar` |
 | `$sudrel->empresas` | `listar`, `prontidao` |
 | `$sudrel->webhooks` | `criar`, `listar`, `alterar`, `remover`, `rotacionarSegredo`, `testar`, `entregas`, `reenviar`, `verificar` |
